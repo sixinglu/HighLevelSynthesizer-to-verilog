@@ -1,0 +1,126 @@
+// Project Name: Assignmet4: high-lever state machine 
+// Authors: Boyang Li, Sixing Lu
+
+`timescale 1ns / 1ps
+
+module HLSM( Clk,Rst,Start,a,b,c,j,z,x,Done );
+
+  input Clk, Rst, Start;
+  input [31:0] a,b,c,j;
+  ouput reg [31:0] z,x;
+  ouput reg Done;
+
+  reg [3:0] state;
+  reg [31:0] d,e,f,g,h,dLTe,dEQe,dLTEe;
+
+  parameter S_wait = 0;
+  parameter S_P0_1 =1;
+  parameter S_P0_2 =2;
+  parameter S_P0_3 =3;
+  parameter S_P0_4 =4;
+  parameter S_P0_5 =5;
+  parameter S_P0_6 =6;
+  parameter S_P0_7 =7;
+  parameter S_P0_8 =8;
+  parameter S_P0_9 =9;
+  parameter S_P0_10 =10;
+  parameter S_final =11;
+
+  always@(posedge Clk) begin
+    if (Rst == 1) begin
+      state <= S_wait;
+      Done <= 0;
+      z <= 0;
+      x <= 0;
+      d <= 0;
+      e <= 0;
+      f <= 0;
+      g <= 0;
+      h <= 0;
+      dLTe <= 0;
+      dEQe <= 0;
+      dLTEe <= 0;
+    end
+    else begin
+
+      case(state)
+        S_wait: begin
+          Done <= 0;
+          z <= 0;
+          x <= 0;
+          d <= 0;
+          e <= 0;
+          f <= 0;
+          g <= 0;
+          h <= 0;
+          dLTe <= 0;
+          dEQe <= 0;
+          dLTEe <= 0;
+          if(Start==1) begin
+            state <= 1;
+          end
+          else begin
+            state <= S_wait;
+          end
+        end
+
+        S_P0_1: begin
+          g <=a+b;
+          state <= S_P0_2;
+        end
+
+        S_P0_2: begin
+          e <=g+c;
+          state <= S_P0_3;
+        end
+
+        S_P0_3: begin
+          g <=g-b;
+          state <= S_P0_4;
+        end
+
+        S_P0_4: begin
+          dEQe <=g==e;
+          state <= S_P0_5;
+        end
+
+        S_P0_5: begin
+          dLTe <=d>g;
+          state <= S_P0_6;
+        end
+
+        S_P0_6: begin
+          g <=dEQe*dLTe;
+          state <= S_P0_7;
+        end
+
+        S_P0_7: begin
+          z <=g;
+          state <= S_P0_8;
+        end
+
+        S_P0_8: begin
+          g <=g*b;
+          state <= S_P0_9;
+        end
+
+        S_P0_9: begin
+          h <=g*c;
+          state <= S_P0_10;
+        end
+
+        S_P0_10: begin
+          g <=j*g;
+           state <= S_final;
+        end
+
+        S_final: begin
+           Done <= 1;
+          state <= S_wait;
+        end
+
+
+      endcase
+    end
+  end
+endmodule

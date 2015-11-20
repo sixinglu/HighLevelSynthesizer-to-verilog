@@ -1,0 +1,470 @@
+// Project Name: Assignmet4: high-lever state machine 
+// Authors: Boyang Li, Sixing Lu
+
+`timescale 1ns / 1ps
+
+module HLSM( Clk,Rst,Start,a,b,c,j,z,x,Done );
+
+  input Clk, Rst, Start;
+  input [31:0] a,b,c,j;
+  output reg [31:0] z,x;
+  output reg Done;
+
+  reg [5:0] state;
+  reg [31:0] d,e,f,g,h,o,y,dLTe,dEQe,dLTEe;
+
+  parameter S_wait = 0;
+  parameter S_while1 =1;
+  parameter S_if1 =2;
+  parameter S_if_dummy1 =3;
+  parameter S_if2 =4;
+  parameter S_if_dummy2 =5;
+  parameter S_if3 =6;
+  parameter S_if_dummy3 =7;
+  parameter S_if4 =8;
+  parameter S_while2 =9;
+  parameter S_if5 =10;
+  parameter S_while3 =11;
+  parameter S_while4 =12;
+  parameter S_while5 =13;
+  parameter S_while_dummy5 =14;
+  parameter S_while_dummy4 =15;
+  parameter S_while_dummy3 =16;
+  parameter S_if6 =17;
+  parameter S_if_dummy6 =18;
+  parameter S_while6 =19;
+  parameter S_while_dummy6 =20;
+  parameter S_if_dummy5 =21;
+  parameter S_while_dummy2 =22;
+  parameter S_if_dummy4 =23;
+  parameter S_while7 =24;
+  parameter S_while_dummy7 =25;
+  parameter S_while8 =26;
+  parameter S_while_dummy8 =27;
+  parameter S_while9 =28;
+  parameter S_while_dummy9 =29;
+  parameter S_while10 =30;
+  parameter S_while_dummy10 =31;
+  parameter S_while_dummy1 =32;
+  parameter S_if7 =33;
+  parameter S_if_dummy7 =34;
+  parameter S_P23_1 =35;
+  parameter S_P23_2 =36;
+  parameter S_P23_3 =37;
+  parameter S_P23_4 =38;
+  parameter S_P23_5 =39;
+  parameter S_P23_6 =40;
+  parameter S_P23_7 =41;
+  parameter S_P23_8 =42;
+  parameter S_P23_9 =43;
+  parameter S_P23_10 =44;
+  parameter S_P23_11 =45;
+  parameter S_P23_12 =46;
+  parameter S_P23_13 =47;
+  parameter S_P23_14 =48;
+  parameter S_if8 =49;
+  parameter S_if_dummy8 =50;
+  parameter S_final =51;
+
+  always@(posedge Clk) begin
+    if (Rst == 1) begin
+      state <= S_wait;
+      Done <= 0;
+      z <= 0;
+      x <= 0;
+      d <= 0;
+      e <= 0;
+      f <= 0;
+      g <= 0;
+      h <= 0;
+      o <= 0;
+      y <= 0;
+      dLTe <= 0;
+      dEQe <= 0;
+      dLTEe <= 0;
+    end
+    else begin
+
+      case(state)
+        S_wait: begin
+          Done <= 0;
+          z <= 0;
+          x <= 0;
+          d <= 0;
+          e <= 0;
+          f <= 0;
+          g <= 0;
+          h <= 0;
+          o <= 0;
+          y <= 0;
+          dLTe <= 0;
+          dEQe <= 0;
+          dLTEe <= 0;
+          if(Start==1) begin
+            state <= 1;
+          end
+          else begin
+            state <= S_wait;
+          end
+        end
+
+        S_while1: begin
+          if(d==0 ) begin
+            state <= S_while_dummy1;
+          end
+          else begin
+          state <= S_if1;
+          end
+        end
+
+        S_if1: begin
+          if(e==0 ) begin
+            state <= S_if_dummy1;
+          end
+          else begin
+          state <= S_if_dummy1;
+          end
+        end
+
+        S_if_dummy1: begin
+          state <= S_if2;
+        end
+
+        S_if2: begin
+          if(e==0 ) begin
+            state <= S_if_dummy2;
+          end
+          else begin
+          state <= S_if_dummy2;
+          end
+        end
+
+        S_if_dummy2: begin
+          state <= S_if3;
+        end
+
+        S_if3: begin
+          if(e==0 ) begin
+            state <= S_if_dummy3;
+          end
+          else begin
+          state <= S_if_dummy3;
+          end
+        end
+
+        S_if_dummy3: begin
+          state <= S_if4;
+        end
+
+        S_if4: begin
+          if(e==0 ) begin
+            state <= S_if_dummy4;
+          end
+          else begin
+          state <= S_while2;
+          end
+        end
+
+        S_while2: begin
+          if(f==0 ) begin
+            state <= S_while_dummy2;
+          end
+          else begin
+          state <= S_if5;
+          end
+        end
+
+        S_if5: begin
+          if(g==0 ) begin
+            state <= S_if_dummy5;
+          end
+          else begin
+          state <= S_while3;
+          end
+        end
+
+        S_while3: begin
+          if(h==0 ) begin
+            state <= S_while_dummy3;
+          end
+          else begin
+          state <= S_while4;
+          end
+        end
+
+        S_while4: begin
+          if(y==0 ) begin
+            state <= S_while_dummy4;
+          end
+          else begin
+          state <= S_while5;
+          end
+        end
+
+        S_while5: begin
+          if(o==0 ) begin
+            state <= S_while_dummy5;
+          end
+          else begin
+          state <= S_while_dummy5;
+          end
+        end
+
+        S_while_dummy5: begin
+          if(o!=0 ) begin
+            state <= S_while5;
+          end
+          else begin
+            state <= S_while_dummy4;
+          end
+        end
+
+        S_while_dummy4: begin
+          if(y!=0 ) begin
+            state <= S_while4;
+          end
+          else begin
+            state <= S_while_dummy3;
+          end
+        end
+
+        S_while_dummy3: begin
+          if(h!=0 ) begin
+            state <= S_while3;
+          end
+          else begin
+            state <= S_if6;
+          end
+        end
+
+        S_if6: begin
+          if(o==0 ) begin
+            state <= S_if_dummy6;
+          end
+          else begin
+          state <= S_if_dummy6;
+          end
+        end
+
+        S_if_dummy6: begin
+          state <= S_while6;
+        end
+
+        S_while6: begin
+          if(o==0 ) begin
+            state <= S_while_dummy6;
+          end
+          else begin
+          state <= S_while_dummy6;
+          end
+        end
+
+        S_while_dummy6: begin
+          if(o!=0 ) begin
+            state <= S_while6;
+          end
+          else begin
+            state <= S_if_dummy5;
+          end
+        end
+
+        S_if_dummy5: begin
+          state <= S_while_dummy2;
+        end
+
+        S_while_dummy2: begin
+          if(f!=0 ) begin
+            state <= S_while2;
+          end
+          else begin
+            state <= S_if_dummy4;
+          end
+        end
+
+        S_if_dummy4: begin
+          state <= S_while7;
+        end
+
+        S_while7: begin
+          if(o==0 ) begin
+            state <= S_while_dummy7;
+          end
+          else begin
+          state <= S_while_dummy7;
+          end
+        end
+
+        S_while_dummy7: begin
+          if(o!=0 ) begin
+            state <= S_while7;
+          end
+          else begin
+            state <= S_while8;
+          end
+        end
+
+        S_while8: begin
+          if(o==0 ) begin
+            state <= S_while_dummy8;
+          end
+          else begin
+          state <= S_while_dummy8;
+          end
+        end
+
+        S_while_dummy8: begin
+          if(o!=0 ) begin
+            state <= S_while8;
+          end
+          else begin
+            state <= S_while9;
+          end
+        end
+
+        S_while9: begin
+          if(o==0 ) begin
+            state <= S_while_dummy9;
+          end
+          else begin
+          state <= S_while_dummy9;
+          end
+        end
+
+        S_while_dummy9: begin
+          if(o!=0 ) begin
+            state <= S_while9;
+          end
+          else begin
+            state <= S_while10;
+          end
+        end
+
+        S_while10: begin
+          if(o==0 ) begin
+            state <= S_while_dummy10;
+          end
+          else begin
+          state <= S_while_dummy10;
+          end
+        end
+
+        S_while_dummy10: begin
+          if(o!=0 ) begin
+            state <= S_while10;
+          end
+          else begin
+            state <= S_while_dummy1;
+          end
+        end
+
+        S_while_dummy1: begin
+          if(d!=0 ) begin
+            state <= S_while1;
+          end
+          else begin
+            state <= S_if7;
+          end
+        end
+
+        S_if7: begin
+          if(o==0 ) begin
+            state <= S_if_dummy7;
+          end
+          else begin
+          state <= S_if_dummy7;
+          end
+        end
+
+        S_if_dummy7: begin
+          state <= S_P23_1;
+        end
+
+        S_P23_1: begin
+           g <= a + b;
+           state <= S_P23_2;
+        end
+
+        S_P23_2: begin
+           e <= g + c;
+           state <= S_P23_3;
+        end
+
+        S_P23_3: begin
+           g <= g - b;
+           state <= S_P23_4;
+        end
+
+        S_P23_4: begin
+           dEQe <= g == e;
+           state <= S_P23_5;
+        end
+
+        S_P23_5: begin
+           dLTe <= d > g;
+           state <= S_P23_6;
+        end
+
+        S_P23_6: begin
+           g <= dEQe * dLTe;
+           state <= S_P23_7;
+        end
+
+        S_P23_7: begin
+           state <= S_P23_8;
+        end
+
+        S_P23_8: begin
+           z <= g;
+           state <= S_P23_9;
+        end
+
+        S_P23_9: begin
+           g <= g * b;
+           state <= S_P23_10;
+        end
+
+        S_P23_10: begin
+           state <= S_P23_11;
+        end
+
+        S_P23_11: begin
+           h <= g * c;
+           state <= S_P23_12;
+        end
+
+        S_P23_12: begin
+           state <= S_P23_13;
+        end
+
+        S_P23_13: begin
+           g <= j * g;
+           state <= S_P23_14;
+        end
+
+        S_P23_14: begin
+          state <= S_if8;
+        end
+
+        S_if8: begin
+          if(o==0 ) begin
+            state <= S_if_dummy8;
+          end
+          else begin
+          state <= S_if_dummy8;
+          end
+        end
+
+        S_if_dummy8: begin
+           state <= S_final;
+        end
+
+        S_final: begin
+           Done <= 1;
+          state <= S_wait;
+        end
+
+
+      endcase
+    end
+  end
+endmodule
